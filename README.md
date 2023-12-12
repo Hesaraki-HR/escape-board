@@ -6,7 +6,7 @@ Escape Board is a **3D game** inspired by the classic *Snakes and Ladders*, show
 
 ## Features
 
-- **3D Environment:** Escape Board takes the traditional Snakes and Ladders gameplay into a three-dimensional space, providing a visually engaging experience.
+- **3D Environment:** Escape Board takes the concept of the traditional Snakes and Ladders gameplay into a three-dimensional space with different elements, providing a visually engaging experience.
 
 - **Unity Editor 2022.3.15f1:** The project is developed using Unity's latest Editor version, incorporating new features and enhancements available as of the specified release.
 
