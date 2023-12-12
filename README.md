@@ -4,6 +4,8 @@
 
 Escape Board is a **3D game** inspired by the classic *Snakes and Ladders*, showcasing my capabilities in **Unity game development**. This project serves as a demonstration of my proficiency in Unity, highlighting key features and design choices. The game is built using **Unity Editor version 2022.3.15f1** and utilizes the **Universal Render Pipeline (URP)**. The **Cinemachine** package is employed to control the in-game camera for a dynamic and immersive experience.
 
+[![Video Title](https://img.youtube.com/vi/YZ9Y01fA_eg/0.jpg)](https://www.youtube.com/watch?v=YZ9Y01fA_eg)
+
 ## Features
 
 - **3D Environment:** Escape Board takes the concept of the traditional Snakes and Ladders gameplay into a three-dimensional space with different elements, providing a visually engaging experience.
@@ -34,7 +36,7 @@ git clone https://github.com/Hesaraki-HR/escape-board.git
    - Verify that the Universal Render Pipeline and Cinemachine packages are installed.
 
 5. **Run the Game**
-   - Open the main scene.
+   - Open the Game scene.
    - Press the Play button to run the game in the Unity Editor.
 
 ## Contributing
