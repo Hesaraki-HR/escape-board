@@ -213,6 +213,12 @@ MonoBehaviour:
   m_Damping: 1
   m_MinFOV: 3
   m_MaxFOV: 60
+--- !u!4 &273923961 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 988839779431962992, guid: 8280ad2f586477b47ac0d3d3e444e3aa,
+    type: 3}
+  m_PrefabInstance: {fileID: 1494734010411343801}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -1089,6 +1095,12 @@ MonoBehaviour:
   m_AmplitudeGain: 1
   m_FrequencyGain: 1
   mNoiseOffsets: {x: 0, y: 0, z: 0}
+--- !u!4 &1274462143 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4241265662492301553, guid: f657c58adb4c219419ae056411d88e27,
+    type: 3}
+  m_PrefabInstance: {fileID: 3547330567446645045}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1325585066
 GameObject:
   m_ObjectHideFlags: 0
@@ -1231,7 +1243,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1530252380}
   - component: {fileID: 1530252379}
-  - component: {fileID: 1530252381}
   m_Layer: 0
   m_Name: Game
   m_TagString: Untagged
@@ -1273,18 +1284,6 @@ Transform:
   - {fileID: 330585546}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1530252381
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1530252378}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 34fc8a16ceaf66543af15b84601e7173, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1633810254 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 475374, guid: 8280ad2f586477b47ac0d3d3e444e3aa,
@@ -1401,6 +1400,7 @@ MonoBehaviour:
   _boardSize: {x: 10, y: 10}
   tilePrefab: {fileID: 5997080164279142786, guid: 5f8e3ae46132a39408f5124fab6e9b17,
     type: 3}
+  _tilesRoot: {fileID: 348557560}
 --- !u!4 &1880302112
 Transform:
   m_ObjectHideFlags: 0
@@ -1561,6 +1561,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1989309185578823072, guid: 8280ad2f586477b47ac0d3d3e444e3aa,
         type: 3}
+      propertyPath: _diceLocation
+      value: 
+      objectReference: {fileID: 273923961}
+    - target: {fileID: 1989309185578823072, guid: 8280ad2f586477b47ac0d3d3e444e3aa,
+        type: 3}
       propertyPath: _virtualCamera
       value: 
       objectReference: {fileID: 37337873}
@@ -1641,6 +1646,11 @@ PrefabInstance:
       propertyPath: m_StaticShadowCaster
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1974319907157598533, guid: f657c58adb4c219419ae056411d88e27,
+        type: 3}
+      propertyPath: _diceLocation
+      value: 
+      objectReference: {fileID: 1274462143}
     - target: {fileID: 1974319907157598533, guid: f657c58adb4c219419ae056411d88e27,
         type: 3}
       propertyPath: _virtualCamera

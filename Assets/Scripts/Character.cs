@@ -25,11 +25,14 @@ public class Character : MonoBehaviour
     [SerializeField]
     CinemachineVirtualCamera _virtualCamera;
 
+    [SerializeField]
+    private Transform _diceLocation;
+
 
     private CharacterController _characterController;
     private Animator _animator;
     private Queue<Vector3> _wayPoints;
-    private Transform _diceLocation;
+
 
     CustomItemCollection<int> _diceResults;
     int _currentTileIndex;
@@ -49,7 +52,6 @@ public class Character : MonoBehaviour
     private void Start()
     {
         _characterController = GetComponent<CharacterController>();
-        _diceLocation = transform.Find("Dice location");
         _animator = GetComponent<Animator>();
     }
 
@@ -98,13 +100,6 @@ public class Character : MonoBehaviour
         }
     }
 
-    private void OnAnimatorMove()
-    {
-        //Vector3 velocity = _animator.deltaPosition;
-        //velocity.y = 0;
-        //_characterController.Move(velocity);
-    }
-
     public void CreateWayPoints()
     {
         _wayPoints.Clear();
@@ -116,7 +111,6 @@ public class Character : MonoBehaviour
             for (int i = 0; i < steps; i++)
             {
                 var pos = _unitType == CharacterTypes.Player ? currentTile.NextTile.PlayerRoom : currentTile.NextTile.OpponentRoom;
-                //var pos = currentTile.NextTile.transform.position;
 
                 _wayPoints.Enqueue(new Vector3(pos.x, 0, pos.z));
                 currentTile = currentTile.NextTile;

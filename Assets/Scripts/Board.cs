@@ -10,9 +10,12 @@ public class Board : MonoBehaviour
     [SerializeField]
     Tile tilePrefab = default;
 
+    [SerializeField]
+    Transform _tilesRoot;
+
+
     Tile[] _tiles;
 
-    Transform _tilesRoot;
 
     public static Board Instance { get; private set; }
 
@@ -22,7 +25,6 @@ public class Board : MonoBehaviour
     }
     public void Initialize()
     {
-        _tilesRoot = transform.Find("Tiles");
         Vector2 offset = new Vector2((_boardSize.x - 1) * 0.5f, (_boardSize.y - 1) * 0.5f);
         _tiles = new Tile[_boardSize.x * _boardSize.y];
         for (int y = 0, i = 0; y < _boardSize.y; y++)

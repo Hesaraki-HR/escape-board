@@ -47,19 +47,14 @@ public class GameManager : MonoBehaviour
 
     GameStates _gameState;
 
-    UI _uI;
-
-
     void Awake()
     {
         _board.Initialize();
-        _uI = GetComponent<UI>();
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        SceneManager.sceneLoaded += _uI.OnSceneLoaded;
         SceneManager.LoadSceneAsync("UI", LoadSceneMode.Additive);
 
         _dice.onDiceRollResult.AddListener(HandleDiceResult);
@@ -139,7 +134,7 @@ public class GameManager : MonoBehaviour
     private void RollDice()
     {
         _dice.Roll();
-        _uI.HideUI();
+        UI.Instance.HideUI();
     }
 
     private IEnumerator SwitchCamera(Action switchCameraAction, Action afterSwitchingCameraAction)
@@ -163,12 +158,17 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (UI.Instance == null)
+        {
+            return;
+        }
+        
         switch (_gameState)
         {
             case GameStates.PlayerStartTurn:
                 _dice.PlaceOn(_player.DiceLocation);
                 _currentTurn = TurnOptions.Player;
-                _uI.ShowMessage("Press Space to Roll the Dice");
+                UI.Instance.ShowMessage("Press Space to Roll the Dice");
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
                     RollDice();
@@ -180,14 +180,14 @@ public class GameManager : MonoBehaviour
                 _gameState = GameStates.PlayerMoving;
                 break;
             case GameStates.PlayerWon:
-                _uI.ShowMessage("Player Won");
+                UI.Instance.ShowMessage("Player Won");
                 break;
 
 
             case GameStates.OpponentStartTurn:
                 _dice.PlaceOn(_opponent.DiceLocation);
                 _currentTurn = TurnOptions.Opponent;
-                _uI.ShowMessage("Press Space to Roll the Dice");
+                UI.Instance.ShowMessage("Press Space to Roll the Dice");
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
                     RollDice();
@@ -199,7 +199,7 @@ public class GameManager : MonoBehaviour
                 _gameState = GameStates.OpponentMoving;
                 break;
             case GameStates.OpponentWon:
-                _uI.ShowMessage("Opponent Won");
+                UI.Instance.ShowMessage("Opponent Won");
                 break;
         }
     }
