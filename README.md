@@ -34,7 +34,7 @@ git clone https://github.com/Hesaraki-HR/escape-board.git
    - Verify that the Universal Render Pipeline and Cinemachine packages are installed.
 
 5. **Run the Game**
-   - Open the main scene.
+   - Open the Game scene.
    - Press the Play button to run the game in the Unity Editor.
 
 ## Contributing
