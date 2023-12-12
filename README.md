@@ -16,7 +16,7 @@ Escape Board is a **3D game** inspired by the classic *Snakes and Ladders*, show
 
 ## Getting Started
 
-### 1. Clone the Repository
+1. **Clone the Repository**
 ```bash
 git clone https://github.com/Hesaraki-HR/escape-board.git
 
