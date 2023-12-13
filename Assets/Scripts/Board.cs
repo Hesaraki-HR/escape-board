@@ -1,6 +1,6 @@
 using UnityEngine;
-using TMPro;
 using System.Linq;
+
 
 public class Board : MonoBehaviour
 {
@@ -17,10 +17,17 @@ public class Board : MonoBehaviour
 
 
     public static Board Instance { get; private set; }
-
+    public int MaxIndex => _tiles.Count();
     private void Awake()
     {
-        Instance = this;
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Instance = this;
+        }
     }
     public void Initialize()
     {
@@ -53,5 +60,5 @@ public class Board : MonoBehaviour
         return _tiles.First(x => x.Index == tileNumber);
     }
 
-    public int MaxIndex => _tiles.Count();
+
 }

@@ -122,8 +122,10 @@ public class Character : MonoBehaviour
         }
     }
 
+    // This script pushes all rigidbodies that the character touches
     void OnControllerColliderHit(ControllerColliderHit hit)
     {
+        float pushPower = 2.0F;
         Rigidbody body = hit.collider.attachedRigidbody;
 
         // no rigidbody
@@ -146,7 +148,7 @@ public class Character : MonoBehaviour
         // then you can also multiply the push velocity by that.
 
         // Apply the push
-        body.velocity = pushDir;
+        body.velocity = pushDir * pushPower;
     }
 
 }
