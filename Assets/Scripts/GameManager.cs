@@ -12,13 +12,13 @@ public enum TurnOptions
 
 enum GameStates
 {
-    PlayerStartTurn,
+    PlayerTurn,
     PlayerRollingDice,
     PlayerAfterDiceRolled,
     PlayerMoving,
     PlayerWon,
 
-    OpponentStartTurn,
+    OpponentTurn,
     OpponentRollingDice,
     OpponentAfterDiceRolled,
     OpponentMoving,
@@ -39,6 +39,9 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     Dice _dice = default;
+
+    [SerializeField, Min(1f)]
+    float _delayToSeeTheDice = 1f;
 
     [SerializeField]
     TurnOptions _startTurn = default;
@@ -63,11 +66,11 @@ public class GameManager : MonoBehaviour
 
         var firstTile = _board.GetTile(1);
 
-        _player.PlaceOn(new Vector3(firstTile.PlayerRoom.x, _player.transform.position.y, firstTile.PlayerRoom.z));
-        _opponent.PlaceOn(new Vector3(firstTile.OpponentRoom.x, _opponent.transform.position.y, firstTile.OpponentRoom.z));
+        _player.PlaceOn(firstTile.PlayerRoom.position);
+        _opponent.PlaceOn(firstTile.OpponentRoom.position);
 
         _currentTurn = _startTurn;
-        _gameState = _currentTurn == TurnOptions.Player ? GameStates.PlayerStartTurn : GameStates.OpponentStartTurn;
+        _gameState = _currentTurn == TurnOptions.Player ? GameStates.PlayerTurn : GameStates.OpponentTurn;
 
     }
 
@@ -84,7 +87,7 @@ public class GameManager : MonoBehaviour
         StartCoroutine(SwitchCamera(() => SwitchToOpponent()
         , () =>
         {
-            _gameState = GameStates.OpponentStartTurn;
+            _gameState = GameStates.OpponentTurn;
         }));
     }
 
@@ -100,7 +103,7 @@ public class GameManager : MonoBehaviour
         StartCoroutine(SwitchCamera(() => SwitchToPlayer()
         , () =>
         {
-            _gameState = GameStates.PlayerStartTurn;
+            _gameState = GameStates.PlayerTurn;
         }));
     }
 
@@ -108,27 +111,29 @@ public class GameManager : MonoBehaviour
     {
         _gameState = GameStates.SwitchingCamera;
 
-        StartCoroutine(DelayAndContinue(1f, () =>
+        StartCoroutine(DelayAndContinue(_delayToSeeTheDice, () => MoveTheCharacter(result)));
+    }
+
+    private void MoveTheCharacter(int movesCount)
+    {
+        if (_currentTurn == TurnOptions.Player)
         {
-            if (_currentTurn == TurnOptions.Player)
+            StartCoroutine(SwitchCamera(() => SwitchToPlayer()
+            , () =>
             {
-                StartCoroutine(SwitchCamera(() => SwitchToPlayer()
-                , () =>
-                {
-                    _player.AddDiceResult(result);
-                    _gameState = GameStates.PlayerAfterDiceRolled;
-                }));
-            }
-            else
+                _player.AddDiceResult(movesCount);
+                _gameState = GameStates.PlayerAfterDiceRolled;
+            }));
+        }
+        else
+        {
+            StartCoroutine(SwitchCamera(() => SwitchToOpponent()
+            , () =>
             {
-                StartCoroutine(SwitchCamera(() => SwitchToOpponent()
-                , () =>
-                {
-                    _opponent.AddDiceResult(result);
-                    _gameState = GameStates.OpponentAfterDiceRolled;
-                }));
-            }
-        }));
+                _opponent.AddDiceResult(movesCount);
+                _gameState = GameStates.OpponentAfterDiceRolled;
+            }));
+        }
     }
 
     private void RollDice()
@@ -162,10 +167,10 @@ public class GameManager : MonoBehaviour
         {
             return;
         }
-        
+
         switch (_gameState)
         {
-            case GameStates.PlayerStartTurn:
+            case GameStates.PlayerTurn:
                 _dice.PlaceOn(_player.DiceLocation);
                 _currentTurn = TurnOptions.Player;
                 UI.Instance.ShowMessage("Press Space to Roll the Dice");
@@ -184,7 +189,7 @@ public class GameManager : MonoBehaviour
                 break;
 
 
-            case GameStates.OpponentStartTurn:
+            case GameStates.OpponentTurn:
                 _dice.PlaceOn(_opponent.DiceLocation);
                 _currentTurn = TurnOptions.Opponent;
                 UI.Instance.ShowMessage("Press Space to Roll the Dice");
@@ -208,12 +213,12 @@ public class GameManager : MonoBehaviour
     {
         switch (_gameState)
         {
-            case GameStates.PlayerStartTurn:
+            case GameStates.PlayerTurn:
             case GameStates.PlayerWon:
                 SwitchToPlayer();
                 break;
 
-            case GameStates.OpponentStartTurn:
+            case GameStates.OpponentTurn:
             case GameStates.OpponentWon:
                 SwitchToOpponent();
                 break;

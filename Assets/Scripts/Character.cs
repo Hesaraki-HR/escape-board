@@ -110,7 +110,7 @@ public class Character : MonoBehaviour
         {
             for (int i = 0; i < steps; i++)
             {
-                var pos = _unitType == CharacterTypes.Player ? currentTile.NextTile.PlayerRoom : currentTile.NextTile.OpponentRoom;
+                var pos = _unitType == CharacterTypes.Player ? currentTile.NextTile.PlayerRoom.position : currentTile.NextTile.OpponentRoom.position;
 
                 _wayPoints.Enqueue(new Vector3(pos.x, 0, pos.z));
                 currentTile = currentTile.NextTile;

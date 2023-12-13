@@ -5,14 +5,13 @@ using System.Linq;
 public class Board : MonoBehaviour
 {
     [SerializeField]
-    Vector2Int _boardSize = new Vector2Int(4, 5);
+    Vector2Int _boardSize = new Vector2Int(10, 10);
 
     [SerializeField]
     Tile tilePrefab = default;
 
     [SerializeField]
     Transform _tilesRoot;
-
 
     Tile[] _tiles;
 
@@ -34,7 +33,7 @@ public class Board : MonoBehaviour
                 Tile tile = Instantiate(tilePrefab);
                 tile.transform.SetParent(_tilesRoot, false);
                 tile.transform.localPosition = new Vector3(x - offset.x, 0f, y - offset.y);
-                tile.CreateIndex(x, y, _boardSize.x, _boardSize.y);
+                tile.CreateIndex(x, y, _boardSize.x);
                 tile.SetText(tile.Index.ToString());
                 _tiles[i] = tile;
             }
