@@ -71,10 +71,15 @@ public class GameManager : MonoBehaviour
 
     private void HandlePlayerReachedDestination(int destinationIndex)
     {
-        if (destinationIndex == Board.Instance.MaxIndex)
+        if (Board.Instance.IsInTarget(destinationIndex))
         {
             _gameState = GameStates.PlayerWon;
             return;
+        }
+
+        (bool isPortal, int portalTarget) = Board.Instance.GetPortalInfo(destinationIndex);
+        if(isPortal) {
+            _player.TeleportTo(portalTarget);                
         }
 
         _gameState = GameStates.SwitchingCamera;
@@ -87,10 +92,15 @@ public class GameManager : MonoBehaviour
 
     private void HandleOpponentReachedDestination(int destinationIndex)
     {
-        if (destinationIndex == Board.Instance.MaxIndex)
+        if (Board.Instance.IsInTarget(destinationIndex))
         {
             _gameState = GameStates.OpponentWon;
             return;
+        }
+
+        (bool isPortal, int portalTarget) = Board.Instance.GetPortalInfo(destinationIndex);
+        if(isPortal) {
+            _opponent.TeleportTo(portalTarget);                
         }
 
         _gameState = GameStates.SwitchingCamera;

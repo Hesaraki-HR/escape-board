@@ -31,7 +31,7 @@ public class Character : MonoBehaviour
 
     private CharacterController _characterController;
     private Animator _animator;
-    private Queue<Vector3> _wayPoints;
+    protected Queue<Vector3> _wayPoints;
 
 
     CustomItemCollection<int> _diceResults;
@@ -58,12 +58,6 @@ public class Character : MonoBehaviour
     public void AddDiceResult(int diceResult)
     {
         _diceResults.AddItem(diceResult);
-    }
-
-    public void PlaceOn(Vector3 position)
-    {
-        transform.position = position;
-        transform.gameObject.SetActive(true);
     }
 
     private void Update()
@@ -98,6 +92,35 @@ public class Character : MonoBehaviour
                 }
             }
         }
+    }
+
+    // This script pushes all rigidbodies that the character touches
+    void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        float pushPower = 2.0F;
+        Rigidbody body = hit.collider.attachedRigidbody;
+
+        // no rigidbody
+        if (body == null || body.isKinematic)
+        {
+            return;
+        }
+
+        // We dont want to push objects below us
+        if (hit.moveDirection.y < -0.3)
+        {
+            return;
+        }
+
+        // Calculate push direction from move direction,
+        // we only push objects to the sides never up and down
+        Vector3 pushDir = new Vector3(hit.moveDirection.x, 0, hit.moveDirection.z);
+
+        // If you know how fast your character is trying to move,
+        // then you can also multiply the push velocity by that.
+
+        // Apply the push
+        body.velocity = pushDir * pushPower;
     }
 
     public void CreateWayPoints()
@@ -137,33 +160,21 @@ public class Character : MonoBehaviour
         }
     }
 
-    // This script pushes all rigidbodies that the character touches
-    void OnControllerColliderHit(ControllerColliderHit hit)
+    public void TeleportTo(int targetIndex)
     {
-        float pushPower = 2.0F;
-        Rigidbody body = hit.collider.attachedRigidbody;
+        var targetTile = Board.Instance.GetTile(targetIndex);
+        
+        var pos = _unitType == CharacterTypes.Player ? targetTile.PlayerRoom.position : targetTile.OpponentRoom.position;
+        _characterController.enabled = false;
+        transform.position = pos;
 
-        // no rigidbody
-        if (body == null || body.isKinematic)
-        {
-            return;
-        }
+        var nextPos = _unitType == CharacterTypes.Player ? targetTile.NextTile.PlayerRoom.position : targetTile.NextTile.OpponentRoom.position;
+        Vector3 direction = nextPos - transform.position;
+        direction.y = 0f;
+        transform.rotation = Quaternion.LookRotation(direction.normalized);
+        _currentTileIndex = targetIndex;
 
-        // We dont want to push objects below us
-        if (hit.moveDirection.y < -0.3)
-        {
-            return;
-        }
-
-        // Calculate push direction from move direction,
-        // we only push objects to the sides never up and down
-        Vector3 pushDir = new Vector3(hit.moveDirection.x, 0, hit.moveDirection.z);
-
-        // If you know how fast your character is trying to move,
-        // then you can also multiply the push velocity by that.
-
-        // Apply the push
-        body.velocity = pushDir * pushPower;
+        _characterController.enabled = true;
     }
 
 }

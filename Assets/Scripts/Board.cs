@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Linq;
 using System.Collections.Generic;
+using System;
 
 
 public class Board : MonoBehaviour
@@ -54,12 +55,39 @@ public class Board : MonoBehaviour
             currentTile.SetNextInPath(nextTile);
         }
 
+        foreach(var portal in _portals) {
+            var targetTile = GetTile(portal.SourceIndex);
+            GameObject portalInstance = Instantiate(portal.PortalPrefab);
+            portalInstance.transform.SetParent(targetTile.transform, false);
+
+            var portalComponent = portalInstance.GetComponent<Portal>();
+            if(portal.PortalType == PortalTypes.Forward) {
+                portalComponent.SetText($"Jump to {portal.DestinationIndex}");
+            }
+            else {
+                portalComponent.SetText($"Back to {portal.DestinationIndex}");
+            }
+        }
+
     }
 
-    public Tile GetTile(int tileNumber)
+    public Tile GetTile(int tileIndex)
     {
-        return _tiles.First(x => x.Index == tileNumber);
+        return _tiles.First(x => x.Index == tileIndex);
     }
 
+    public bool IsInTarget(int tileIndex)
+    {
+        return  tileIndex == Board.Instance.MaxIndex;
+    }
 
+    public (bool, int) GetPortalInfo(int tileIndex)
+    {
+        foreach(var portal in _portals) {
+            if(portal.SourceIndex == tileIndex) {
+                return (true, portal.DestinationIndex);
+            }
+        }
+        return (false, -1);
+    }
 }

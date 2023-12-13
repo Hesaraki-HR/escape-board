@@ -38,4 +38,5 @@ public class Tile : MonoBehaviour
     {
         _textPlaceHolder.text = text;
     }
+
 }

@@ -12,5 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24b888b1fe18c4141863ef1cd50848d3, type: 3}
   m_Name: Backward4
   m_EditorClassIdentifier: 
+  PortalType: 1
+  PortalPrefab: {fileID: 5228887829012225498, guid: 571f8e6b6d9b08349ae474214e83a534,
+    type: 3}
   SourceIndex: 64
   DestinationIndex: 60
