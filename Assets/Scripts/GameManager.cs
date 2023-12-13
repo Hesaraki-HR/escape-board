@@ -2,7 +2,6 @@ using Cinemachine;
 using System;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Rendering.Universal;
 using UnityEngine.SceneManagement;
 
 public enum TurnOptions
@@ -63,11 +62,6 @@ public class GameManager : MonoBehaviour
         _dice.onDiceRollResult.AddListener(HandleDiceResult);
         _player.onReachedDestination.AddListener(HandlePlayerReachedDestination);
         _opponent.onReachedDestination.AddListener(HandleOpponentReachedDestination);
-
-        var firstTile = _board.GetTile(1);
-
-        _player.PlaceOn(firstTile.PlayerRoom.position);
-        _opponent.PlaceOn(firstTile.OpponentRoom.position);
 
         _currentTurn = _startTurn;
         _gameState = _currentTurn == TurnOptions.Player ? GameStates.PlayerTurn : GameStates.OpponentTurn;

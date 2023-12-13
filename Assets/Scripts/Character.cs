@@ -46,7 +46,7 @@ public class Character : MonoBehaviour
     {
         _diceResults = new CustomItemCollection<int>();
         _wayPoints = new Queue<Vector3>();
-        _currentTileIndex = 1;
+        _currentTileIndex = 0;
     }
 
     private void Start()
@@ -104,7 +104,22 @@ public class Character : MonoBehaviour
     {
         _wayPoints.Clear();
         int steps = _diceResults.GetLastItem();
-        var currentTile = Board.Instance.GetTile(_currentTileIndex);
+        Tile currentTile;
+
+        //Edge case for first move
+        if (_currentTileIndex == 0)
+        {
+            var firstTile = Board.Instance.GetTile(1);
+            var pos = _unitType == CharacterTypes.Player ? firstTile.PlayerRoom.position : firstTile.OpponentRoom.position;
+            _wayPoints.Enqueue(new Vector3(pos.x, 0, pos.z));
+            currentTile = firstTile;
+            steps--;
+        }
+        else
+        {
+            currentTile = Board.Instance.GetTile(_currentTileIndex);
+        }
+
 
         if (_currentTileIndex + steps <= Board.Instance.MaxIndex)
         {
