@@ -167,14 +167,18 @@ public class Character : MonoBehaviour
         var pos = _unitType == CharacterTypes.Player ? targetTile.PlayerRoom.position : targetTile.OpponentRoom.position;
         _characterController.enabled = false;
         transform.position = pos;
-
-        var nextPos = _unitType == CharacterTypes.Player ? targetTile.NextTile.PlayerRoom.position : targetTile.NextTile.OpponentRoom.position;
-        Vector3 direction = nextPos - transform.position;
-        direction.y = 0f;
-        transform.rotation = Quaternion.LookRotation(direction.normalized);
+        
+        if(targetTile.NextTile != null) {
+            var nextPos = _unitType == CharacterTypes.Player ? targetTile.NextTile.PlayerRoom.position : targetTile.NextTile.OpponentRoom.position;
+            Vector3 direction = nextPos - transform.position;
+            direction.y = 0f;
+            transform.rotation = Quaternion.LookRotation(direction.normalized);
+        }
         _currentTileIndex = targetIndex;
 
         _characterController.enabled = true;
+
+        onReachedDestination.Invoke(_currentTileIndex);
     }
 
 }
