@@ -210,8 +210,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Width: 2.5
-  m_Damping: 1
-  m_MinFOV: 3
+  m_Damping: 3
+  m_MinFOV: 45
   m_MaxFOV: 60
 --- !u!4 &273923961 stripped
 Transform:
@@ -280,7 +280,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 31.57675
+  field of view: 45
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -658,8 +658,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Width: 2.5
-  m_Damping: 1
-  m_MinFOV: 3
+  m_Damping: 3
+  m_MinFOV: 45
   m_MaxFOV: 60
 --- !u!1 &557167573
 GameObject:

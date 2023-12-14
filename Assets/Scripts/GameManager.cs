@@ -49,6 +49,8 @@ public class GameManager : MonoBehaviour
 
     GameStates _gameState;
 
+
+
     void Awake()
     {
         _board.Initialize();
@@ -78,8 +80,9 @@ public class GameManager : MonoBehaviour
         }
 
         (bool isPortal, int portalTarget) = Board.Instance.GetPortalInfo(destinationIndex);
-        if(isPortal) {
-            _player.TeleportTo(portalTarget);                
+        if (isPortal)
+        {
+            _player.TeleportTo(portalTarget);
         }
 
         _gameState = GameStates.SwitchingCamera;
@@ -99,8 +102,9 @@ public class GameManager : MonoBehaviour
         }
 
         (bool isPortal, int portalTarget) = Board.Instance.GetPortalInfo(destinationIndex);
-        if(isPortal) {
-            _opponent.TeleportTo(portalTarget);                
+        if (isPortal)
+        {
+            _opponent.TeleportTo(portalTarget);
         }
 
         _gameState = GameStates.SwitchingCamera;

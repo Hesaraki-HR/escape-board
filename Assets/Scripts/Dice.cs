@@ -5,13 +5,13 @@ using UnityEngine.Events;
 public class DiceRollResultEvent : UnityEvent<int> { }
 public class Dice : MonoBehaviour
 {
-    [SerializeField] 
+    [SerializeField]
     int[] SidesValues = new int[] { 1, 2, 3, 4, 5, 6 };
 
-    [SerializeField] 
+    [SerializeField]
     Transform[] Sides;
 
-    [SerializeField] 
+    [SerializeField]
     float forceAmount = 2f;
 
     [SerializeField]
@@ -19,6 +19,7 @@ public class Dice : MonoBehaviour
 
 
     Rigidbody _rb;
+    AudioSource _collisionSound;
 
     private bool isRolling = false;
 
@@ -29,6 +30,7 @@ public class Dice : MonoBehaviour
     void Awake()
     {
         _rb = GetComponent<Rigidbody>();
+        _collisionSound = GetComponent<AudioSource>();
     }
 
     public void Roll()
@@ -70,7 +72,7 @@ public class Dice : MonoBehaviour
 
     public void PlaceOn(Vector3 position)
     {
-        if(_rb == null)
+        if (_rb == null)
         {
             _rb = GetComponent<Rigidbody>();
         }
@@ -80,5 +82,18 @@ public class Dice : MonoBehaviour
         Vector3 randomRotation = new Vector3(Random.Range(0f, 360f), Random.Range(0f, 360f), Random.Range(0f, 360f));
         transform.rotation = Quaternion.Euler(randomRotation);
         transform.gameObject.SetActive(true);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (_collisionSound == null)
+        {
+            return;
+        }
+        
+        for (int i = 0; i < collision.contactCount; i++)
+        {
+            AudioSource.PlayClipAtPoint(_collisionSound.clip, collision.GetContact(i).point, collision.relativeVelocity.magnitude);
+        }
     }
 }
