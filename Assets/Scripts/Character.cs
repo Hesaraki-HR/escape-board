@@ -1,4 +1,4 @@
-﻿using Cinemachine;
+﻿using Unity.Cinemachine;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -23,7 +23,7 @@ public class Character : MonoBehaviour
     CharacterTypes _unitType = default;
 
     [SerializeField]
-    CinemachineVirtualCamera _virtualCamera;
+    CinemachineCamera _virtualCamera;
 
     [SerializeField]
     private Transform _diceLocation;
@@ -40,7 +40,7 @@ public class Character : MonoBehaviour
     public CharacterReachedDestinationEvent onReachedDestination = new CharacterReachedDestinationEvent();
 
     public Vector3 DiceLocation => _diceLocation.position;
-    public CinemachineVirtualCamera Camera => _virtualCamera;
+    public CinemachineCamera Camera => _virtualCamera;
 
     public Character()
     {

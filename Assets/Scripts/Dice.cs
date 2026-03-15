@@ -1,4 +1,4 @@
-using Cinemachine;
+using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -15,7 +15,7 @@ public class Dice : MonoBehaviour
     float forceAmount = 2f;
 
     [SerializeField]
-    CinemachineVirtualCamera _virtualCamera;
+    CinemachineCamera _virtualCamera;
 
 
     Rigidbody _rb;
@@ -25,7 +25,7 @@ public class Dice : MonoBehaviour
 
     public DiceRollResultEvent onDiceRollResult = new DiceRollResultEvent();
 
-    public CinemachineVirtualCamera Camera => _virtualCamera;
+    public CinemachineCamera Camera => _virtualCamera;
 
     void Awake()
     {
