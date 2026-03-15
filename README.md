@@ -10,7 +10,7 @@ Escape Board is a **3D game** inspired by the classic *Snakes and Ladders*, show
 
 - **3D Environment:** Escape Board takes the concept of the traditional Snakes and Ladders gameplay into a three-dimensional space with different elements, providing a visually engaging experience.
 
-- **Unity Editor 2022.3.15f1:** The project is developed using Unity's latest Editor version, incorporating new features and enhancements available as of the specified release.
+- **Unity Editor:** The project is developed using Unity's latest Editor version, incorporating new features and enhancements available as of the specified release.
 
 - **Universal Render Pipeline (URP):** Leveraging the power of URP ensures a visually appealing and optimized rendering pipeline for a smooth gaming experience.
 
@@ -28,14 +28,11 @@ git clone https://github.com/Hesaraki-HR/escape-board.git
    - Open Unity Hub.
    - Add the Escape Board project by selecting the cloned directory.
 
-3. **Verify Unity Version**
-   - Ensure you have Unity Editor version 2022.3.15f1 installed.
-
-4. **Install Dependencies**
+3. **Install Dependencies**
    - Open the Package Manager.
    - Verify that the Universal Render Pipeline and Cinemachine packages are installed.
 
-5. **Run the Game**
+4. **Run the Game**
    - Open the Game scene.
    - Press the Play button to run the game in the Unity Editor.
 
